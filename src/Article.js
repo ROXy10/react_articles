@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, PropTypes} from 'react'
 import CommentsList from './CommentsList'
 
 
@@ -8,6 +8,10 @@ class Artilce extends Component {
         isOpen: false
     };
 
+    static propTypes = {
+        article: PropTypes.object.isRequired
+    }
+
     // constructor(props) {
     //     super(props);
     //     this.state = {
@@ -16,15 +20,13 @@ class Artilce extends Component {
     // }
 
     render() {
-        const article = this.props.article;
-        const isOpen = this.state.isOpen;
-        const body = isOpen ? <section>{ article.text }</section> : null;
+        const { isOpen, openArticle, article: { title, text, comments } } = this.props;
+        const body = isOpen ? <section>{ text }<CommentsList comments = {comments}/></section> : null;
 
         return (
             <div>
-                <h1 onClick={this.toggleOpen}>{ article.title }</h1>
+                <h1 onClick={openArticle}>{ title }</h1>
                 {body}
-                <CommentsList article = {article}/>
             </div>
         )
     }
