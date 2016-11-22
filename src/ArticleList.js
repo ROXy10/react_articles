@@ -1,28 +1,18 @@
 import React, {Component}from 'react'
 import Article from './Article'
-
+import openArticle from './decorators/openArticle'
 
 class ArticleList extends Component {
-    state = {
-        openArticleId: null
-    };
-
-    openArticle = id => ev => {
-        if (ev) ev.preventDefault();
-        this.setState({
-            openArticleId: id
-        })
-    };
 
     render() {
-        const { articles } = this.props;
+        const { articles, openArticleId, openArticle, isOpen } = this.props;
         const listItems = articles.map((article) => <li key={article.id}>
             <Article article={article}
-                     isOpen={article.id == this.state.openArticleId}
-                     openArticle={this.openArticle(article.id)}
+                     isOpenId={article.id == openArticleId}
+                     openArticle={openArticle(article.id)}
+                     isOpen={isOpen}
             />
-        </li>)
-
+        </li>);
         return (
             <div>
                 <h1>Article List</h1>
@@ -32,7 +22,6 @@ class ArticleList extends Component {
             </div>
         )
     }
-
 }
 
-export default ArticleList
+export default openArticle(ArticleList)
