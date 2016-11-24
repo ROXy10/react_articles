@@ -4,19 +4,19 @@ import React, { Component }  from 'react'
 export default (Component) => {
     return class DecoratedComponent extends Component {
         state = {
-            openArticleId: null,
+            openItemId: null,
             isOpen: false
         };
-        openArticle = id => ev => {
+        openItem = id => ev => {
             if (ev) ev.preventDefault();
             this.setState({
-                openArticleId: id,
+                openItemId: id,
                 isOpen: !this.state.isOpen
             })
         };
 
         render() {
-            return <Component {...this.props} openArticleId={this.state.openArticleId} openArticle={this.openArticle} isOpen={this.state.isOpen}/>
+            return <Component {...this.props} openItemId={this.state.openItemId} openItem={this.openItem} isOpen={this.state.isOpen}/>
         }
     };
 }
